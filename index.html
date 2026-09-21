@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Floricits</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    html, body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    body {
+        background: #101b15;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        font-family: Arial, sans-serif;
+    }
+
+    .jardin {
+        position: relative;
+        width: min(100vw, 900px);
+        height: 100vh;
+        min-height: 500px;
+        overflow: hidden;
+    }
+
+    .flor {
+        position: absolute;
+        bottom: 0;
+        width: 150px;
+        height: 310px;
+        transform-origin: bottom center;
+    }
+
+    /* Flor grande */
+    .flor-grande {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .tallo {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 6px;
+        height: 205px;
+        transform: translateX(-50%);
+        background: #37a94d;
+        border-radius: 10px;
+    }
+
+    .hoja {
+        position: absolute;
+        width: 85px;
+        height: 42px;
+        background: #49bd59;
+        border-radius: 100% 0 100% 0;
+    }
+
+    .hoja-grande {
+        left: 18px;
+        bottom: 80px;
+        transform: rotate(-28deg);
+    }
+
+    .hoja-derecha {
+        right: -2px;
+        bottom: 22px;
+        transform: rotate(25deg) scale(.95);
+    }
+
+    .cabeza {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 150px;
+        height: 150px;
+        transform: translateX(-50%);
+    }
+
+    .petalo {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 58px;
+        height: 92px;
+        background: #ffd21a;
+        border-radius: 55% 55% 48% 48%;
+        transform-origin: 50% 100%;
+        box-shadow: 0 0 5px rgba(255, 204, 0, .25);
+    }
+
+    .p1 { transform: translate(-50%, -100%) rotate(0deg); }
+    .p2 { transform: translate(-50%, -100%) rotate(45deg); }
+    .p3 { transform: translate(-50%, -100%) rotate(90deg); }
+    .p4 { transform: translate(-50%, -100%) rotate(135deg); }
+    .p5 { transform: translate(-50%, -100%) rotate(180deg); }
+    .p6 { transform: translate(-50%, -100%) rotate(225deg); }
+    .p7 { transform: translate(-50%, -100%) rotate(270deg); }
+    .p8 { transform: translate(-50%, -100%) rotate(315deg); }
+
+    .centro {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 65px;
+        height: 65px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: #a66b19;
+        box-shadow: inset 0 0 0 9px #80520f, inset 0 0 0 17px #9b6415;
+    }
+
+    .semilla {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 39px;
+        height: 39px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: #b7550a;
+    }
+
+    /* Flores pequeñas */
+    .flor-pequena {
+        width: 85px;
+        height: 190px;
+    }
+
+    .flor-izq {
+        left: 9%;
+        transform: scale(.72);
+        transform-origin: bottom center;
+    }
+
+    .flor-der {
+        right: 8%;
+        transform: scale(.62);
+        transform-origin: bottom center;
+    }
+
+    .flor-pequena .tallo {
+        height: 125px;
+        width: 4px;
+    }
+
+    .flor-pequena .cabeza {
+        width: 78px;
+        height: 78px;
+    }
+
+    .flor-pequena .petalo {
+        width: 27px;
+        height: 44px;
+    }
+
+    .flor-pequena .centro {
+        width: 29px;
+        height: 29px;
+        box-shadow: inset 0 0 0 4px #80520f, inset 0 0 0 8px #9b6415;
+    }
+
+    .flor-pequena .semilla {
+        width: 18px;
+        height: 18px;
+    }
+
+    .flor-pequena .hoja {
+        width: 50px;
+        height: 26px;
+    }
+
+    .flor-izq .hoja-grande {
+        left: 3px;
+        bottom: 42px;
+    }
+
+    .flor-der .hoja-derecha {
+        right: -8px;
+        bottom: 28px;
+    }
+
+    .mensaje {
+        position: absolute;
+        top: 22px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff5b0;
+        font-size: clamp(18px, 3vw, 28px);
+        text-align: center;
+        opacity: 0;
+        animation: aparecer 2s ease forwards;
+        text-shadow: 0 2px 8px #000;
+        z-index: 10;
+    }
+
+    .brillo {
+        animation: balanceo 4s ease-in-out infinite;
+    }
+
+    @keyframes balanceo {
+        0%, 100% { transform: translateX(-50%) rotate(-1deg); }
+        50% { transform: translateX(-50%) rotate(1deg); }
+    }
+
+    @keyframes aparecer {
+        to { opacity: 1; }
+    }
+
+    @media (max-width: 550px) {
+        .flor-izq { left: 1%; }
+        .flor-der { right: 1%; }
+        .flor-grande { transform: translateX(-50%) scale(.82); transform-origin: bottom center; }
+    }
+</style>
+</head>
+
+<body>
+<div class="jardin">
+
+    <div class="mensaje">🌼 Unas flores amarillas para ti 🌼</div>
+
+    <!-- Flor pequeña izquierda -->
+    <div class="flor flor-pequena flor-izq">
+        <div class="tallo"></div>
+        <div class="hoja hoja-grande"></div>
+        <div class="cabeza">
+            <div class="petalo p1"></div><div class="petalo p2"></div>
+            <div class="petalo p3"></div><div class="petalo p4"></div>
+            <div class="petalo p5"></div><div class="petalo p6"></div>
+            <div class="petalo p7"></div><div class="petalo p8"></div>
+            <div class="centro"><div class="semilla"></div></div>
+        </div>
+    </div>
+
+    <!-- Flor grande central -->
+    <div class="flor flor-grande brillo">
+        <div class="tallo"></div>
+        <div class="hoja hoja-grande"></div>
+        <div class="hoja hoja-derecha"></div>
+        <div class="cabeza">
+            <div class="petalo p1"></div><div class="petalo p2"></div>
+            <div class="petalo p3"></div><div class="petalo p4"></div>
+            <div class="petalo p5"></div><div class="petalo p6"></div>
+            <div class="petalo p7"></div><div class="petalo p8"></div>
+            <div class="centro"><div class="semilla"></div></div>
+        </div>
+    </div>
+
+    <!-- Flor pequeña derecha -->
+    <div class="flor flor-pequena flor-der">
+        <div class="tallo"></div>
+        <div class="hoja hoja-derecha"></div>
+        <div class="cabeza">
+            <div class="petalo p1"></div><div class="petalo p2"></div>
+            <div class="petalo p3"></div><div class="petalo p4"></div>
+            <div class="petalo p5"></div><div class="petalo p6"></div>
+            <div class="petalo p7"></div><div class="petalo p8"></div>
+            <div class="centro"><div class="semilla"></div></div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
